@@ -158,4 +158,35 @@ public class ProductRepositoryTest {
         Product selectedProduct = productRepository.updateProduct(changeProduct);
         assertNull(selectedProduct);
     }
+
+    @Test
+    void testDeleteProduct(){
+        String numberId = UUID.randomUUID().toString();
+
+        Product product = new Product();
+        product.setProductId(numberId);
+        product.setProductName("Produk Makanan");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product deleteProduk = productRepository.deleteProduct(numberId);
+        assertEquals(deleteProduk.getProductName(),product.getProductName());
+        assertEquals(deleteProduk.getProductId(),product.getProductId());
+        assertEquals(deleteProduk.getProductQuantity(),product.getProductQuantity());
+    }
+
+    @Test
+    void testDeleteProductNotFound(){
+        String numberId = UUID.randomUUID().toString();
+        String randomId = UUID.randomUUID().toString();
+
+        Product product = new Product();
+        product.setProductId(numberId);
+        product.setProductName("Produk Makanan");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product deleteProduk = productRepository.deleteProduct(randomId);
+        assertNull(deleteProduk);
+    }
 }
