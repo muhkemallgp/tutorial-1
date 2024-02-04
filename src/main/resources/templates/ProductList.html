@@ -13,15 +13,21 @@
 
     <table border="1" class="table table-striped table-responsive-md">
         <thead>
-        <tr>
+        <tr align="center">
             <th scope="col">Product Name</th>
             <th scope="col">Quantity</th>
+            <th scope="col">ID</th>
+            <th scope="col">Edit Button</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product: ${products}">
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
+            <td th:text="${product.productId}"></td>
+            <td align="center">
+                    <a class="btn btn-primary" th:href="@{/product/update/{productId}(productId=${product.productId})}">Edit Button </a>
+            </td>
         </tr>
         </tbody>
     </table>
