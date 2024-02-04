@@ -34,9 +34,10 @@ public class ProductRepository {
             if(product.getProductId().equals(productUpdate.getProductId())){
                 product.setProductName(productUpdate.getProductName());
                 product.setProductQuantity(productUpdate.getProductQuantity());
+                return product;
             }
         }
-        return productUpdate;
+        return null;
     }
 
     public Product deleteProduct(String id){
