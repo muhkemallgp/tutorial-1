@@ -132,11 +132,30 @@ public class ProductRepositoryTest {
         changeProduct.setProductId(numberId);
         changeProduct.setProductName("Produk Minuman");
         changeProduct.setProductQuantity(200);
-        productRepository.updateProduct(changeProduct);
 
-        Product selectedProduct = productRepository.findById(numberId);
+        Product selectedProduct = productRepository.updateProduct(changeProduct);
         assertEquals(changeProduct.getProductQuantity(),selectedProduct.getProductQuantity());
         assertEquals(changeProduct.getProductId(),selectedProduct.getProductId());
         assertEquals(changeProduct.getProductName(),selectedProduct.getProductName());
+    }
+
+    @Test
+    void testUpdateProductNotFound(){
+        String numberId = UUID.randomUUID().toString();
+        String randomId = UUID.randomUUID().toString();
+
+        Product product = new Product();
+        product.setProductId(numberId);
+        product.setProductName("Produk Makanan");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product changeProduct = new Product();
+        changeProduct.setProductId(randomId);
+        changeProduct.setProductName("Produk Minuman");
+        changeProduct.setProductQuantity(200);
+
+        Product selectedProduct = productRepository.updateProduct(changeProduct);
+        assertNull(selectedProduct);
     }
 }
