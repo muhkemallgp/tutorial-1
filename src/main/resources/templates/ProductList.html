@@ -24,7 +24,9 @@
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
             <td align="center">
-                <a th:href="@{/product/delete/{productId}(productId=${product.productId})}" class="btn btn-primary">Delete</a>
+                <form th:action="@{/product/delete/{productId}(productId=${product.productId})}" th:method="delete">
+                    <button class="btn btn-danger btn-sm" th:type="submit">Delete</button>
+                </form>
             </td>
         </tr>
         </tbody>
