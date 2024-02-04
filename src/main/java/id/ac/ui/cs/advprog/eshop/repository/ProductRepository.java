@@ -38,6 +38,16 @@ public class ProductRepository {
         }
         return productUpdate;
     }
+
+    public Product deleteProduct(String id){
+        for(Product product:productData){
+            if(product.getProductId().equals(id)){
+                productData.remove(product);
+                return product;
+            }
+        }
+        return null;
+    }
 }
 
 
