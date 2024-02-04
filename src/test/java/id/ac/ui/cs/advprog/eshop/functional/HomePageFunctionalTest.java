@@ -53,6 +53,6 @@ public class HomePageFunctionalTest {
         String welcomeMessage = driver.findElement(By.tagName("h3")).getText();
 
         // Verify
-        assertEquals("welcome", welcomeMessage);
+        assertEquals("Welcome", welcomeMessage);
     }
 }
