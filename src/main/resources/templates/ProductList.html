@@ -13,15 +13,19 @@
 
     <table border="1" class="table table-striped table-responsive-md">
         <thead>
-        <tr>
+        <tr align="center">
             <th scope="col">Product Name</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Delete Button</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product: ${products}">
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
+            <td align="center">
+                <a th:href="@{/product/delete/{productId}(productId=${product.productId})}" class="btn btn-primary">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>
