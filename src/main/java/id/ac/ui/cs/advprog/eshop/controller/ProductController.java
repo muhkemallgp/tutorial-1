@@ -3,7 +3,6 @@ package id.ac.ui.cs.advprog.eshop.controller;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class ProductController {
     public String createProductPage(Model model){
         Product product = new Product();
         model.addAttribute("product",product);
-        return "createProduct";
+        return "createproduct";
     }
 
     @PostMapping("/create")
@@ -34,14 +33,14 @@ public class ProductController {
     public String productListPage(Model model){
         List<Product> allProducts = service.findAll();
         model.addAttribute("products",allProducts);
-        return "productList";
+        return "productlist";
     }
 
     @GetMapping("/update/{productId}")
     public String updateProduct(@PathVariable("productId") String productId, Model model){
         Product productSelected = service.findById(productId);
         model.addAttribute("product",productSelected);
-        return "editProduct";
+        return "editproduct";
     }
 
     @PutMapping("/update/{productId}")
