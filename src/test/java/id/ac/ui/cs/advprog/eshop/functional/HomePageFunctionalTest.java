@@ -37,7 +37,7 @@ public class HomePageFunctionalTest {
     }
 
     @Test
-    void pageTitle_isCorrect(ChromeDriver driver) throws Exception {
+    void pageTitleIsCorrect(ChromeDriver driver) throws Exception {
         // Exercise
         driver.get(baseUrl);
         String pageTitle = driver.getTitle();
