@@ -33,7 +33,7 @@ class ProductControllerTest {
 
     @Test
     void testCreateProductPage() {
-        String expectedViewName = "createProduct";
+        String expectedViewName = "createproduct";
         String actualViewName = productController.createProductPage(model);
         assertEquals(expectedViewName, actualViewName);
     }
@@ -52,7 +52,7 @@ class ProductControllerTest {
         List<Product> productList = new ArrayList<>();
         when(productService.findAll()).thenReturn(productList);
 
-        String expectedViewName = "productList";
+        String expectedViewName = "productlist";
         String actualViewName = productController.productListPage(model);
         assertEquals(expectedViewName, actualViewName);
         verify(model, times(1)).addAttribute("products", productList);
@@ -74,7 +74,7 @@ class ProductControllerTest {
         String productId = product.getProductId();
         when(productService.findById(productId)).thenReturn(product);
 
-        String expectedViewName = "editProduct";
+        String expectedViewName = "editproduct";
         String actualViewName = productController.updateProduct(productId, model);
         assertEquals(expectedViewName, actualViewName);
         verify(model, times(1)).addAttribute("product", product);
