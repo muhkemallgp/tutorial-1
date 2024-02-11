@@ -3,6 +3,24 @@
 ### Kelas : ADPRO - A
 ### ASDOS : REN
 
+# TUTORIAL - 2
+## Refleksi
+
+### 1. _List Quality Code Issues_ yang sudah di fix
+
+- Renaming bad function name:
+
+    Sebelumnya ada beberapa function bawaan yang menggunakan snake case naming convention, disini
+    saya mengubahnya menjadi Camel Case naming convention.
+
+### 2. Implementasi kode sekarang untuk memenuhi CI/CD
+Menurut saya, implementasi sekarang sudah dapat dikategorikan memenuhi basic CI/CD . Dengan github workflows, projek  kita  bisa otomatis melakukan testing dan deployment setiap kali push ke repository GitHub. 
+Setiap push akan diuji dengan ci.yml dan diperiksa sekuritas dan kebenaran dari kode (bukan logic) dengan PMD. 
+Setelah itu, kode akan di-merge ke branch main dan otomatis di-deploy ke PaaS Koyeb dengan action scorecard.yml, membentuk workflows pada Software Development Lifecycle dengan CI/CD.
+
+<hr>
+<hr>
+
 # TUTORIAL - 1
 ## REFLEKSI 1
 Jadi saya sudah mempelajari coding standart yang ada di modul seperti clean code, git flow, secure coding, hingga testing.
