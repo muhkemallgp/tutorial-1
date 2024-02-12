@@ -13,6 +13,35 @@
     Sebelumnya ada beberapa function bawaan yang menggunakan snake case naming convention, disini
     saya mengubahnya menjadi Camel Case naming convention.
 
+- Simply return value:
+
+  Disini saya langsung return hasil dari beberapa fungsi di service tanpa harus membuat instasiasi variabel dulu.
+
+- Mengubah modifier dari class interface service:
+
+  Disini saya mengubah modifier yang sebelumnya public menjadi default tanpa public modifier.
+  Ini dilakukan karena class merupakan interface class.
+
+- Mengubah import dari annotation *:
+  
+  Dalam controller saya mengubah yang awalnya:
+  ```java
+  import org.springframework.web.bind.annotation.*
+  ```
+  Menjadi kode dibawah ini.
+  ```java
+  import org.springframework.web.bind.annotation.GetMapping;
+  import org.springframework.web.bind.annotation.ModelAttribute;
+  import org.springframework.web.bind.annotation.PostMapping;
+  import org.springframework.web.bind.annotation.PutMapping;
+  import org.springframework.web.bind.annotation.RequestMapping;
+  import org.springframework.web.bind.annotation.PathVariable;
+  import org.springframework.web.bind.annotation.DeleteMapping;
+  ```
+  
+
+  
+
 ### 2. Implementasi kode sekarang untuk memenuhi CI/CD
 Menurut saya, implementasi sekarang sudah dapat dikategorikan memenuhi basic CI/CD . Dengan github workflows, projek  kita  bisa otomatis melakukan testing dan deployment setiap kali push ke repository GitHub. 
 Setiap push akan diuji dengan ci.yml dan diperiksa sekuritas dan kebenaran dari kode (bukan logic) dengan PMD. 
