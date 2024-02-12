@@ -42,7 +42,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product deleteProduct(String productId) {
-        Product productSelected = productRepository.deleteProduct(productId);
-        return productSelected;
+        return productRepository.deleteProduct(productId);
     }
 }
