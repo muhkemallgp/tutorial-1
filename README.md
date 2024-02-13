@@ -38,14 +38,16 @@
   import org.springframework.web.bind.annotation.PathVariable;
   import org.springframework.web.bind.annotation.DeleteMapping;
   ```
-  
-
-  
 
 ### 2. Implementasi kode sekarang untuk memenuhi CI/CD
 Menurut saya, implementasi sekarang sudah dapat dikategorikan memenuhi basic CI/CD . Dengan github workflows, projek  kita  bisa otomatis melakukan testing dan deployment setiap kali push ke repository GitHub. 
 Setiap push akan diuji dengan ci.yml dan diperiksa sekuritas dan kebenaran dari kode (bukan logic) dengan PMD. 
 Setelah itu, kode akan di-merge ke branch main dan otomatis di-deploy ke PaaS Koyeb dengan action scorecard.yml, membentuk workflows pada Software Development Lifecycle dengan CI/CD.
+
+## Bonus Grade:
+code coverage 100%
+
+![img.png](img.png)
 
 <hr>
 <hr>
@@ -133,3 +135,4 @@ Meskipun tidak disertakan secara eksplisit, penggunaan alat cakupan kode akan me
 Untuk suite uji fungsional baru dari test untuk `number of items in the product list`, menurut pandangan saya, kebersihan kode mungkin terganggu karena adanya pengulangan dalam program, yang bertentangan dengan prinsip `jangan mengulang` dari materi dalam pemrograman. 
 
 Selain itu, fungsi-fungsi tersebut mungkin dapat disederhanakan dengan memisahkan _setup_ produk ke dalam fungsi terpisah sehingga setiap fungsi memiliki tujuannya masing-masing.
+
