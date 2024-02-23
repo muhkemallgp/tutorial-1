@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.repository.CarRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CarServiceImpl implements CarService {
+
     @Autowired
     private CarRepository carRepository;
 
