@@ -3,6 +3,94 @@
 #### Kelas : ADPRO - A
 #### ASDOS : REN
 #### Link Deployment: [Eshop-Kemal](https://production-qemul-adpro-eshop.koyeb.app/)
+# TUTORIAL - 3
+## Refleksi
+### 1. Prinsip SOLID yang di implementasikan
+
+- **Prinsip SRP**: 
+
+  Prinsip SRP memberitahukan bahwa satu class seharusnya hanya memegang tanggung jawab atau mengerjakan 
+  hanya satu aspek dari fungsionalitas. 
+
+  Implementasi yang saya gunakan disini adalah memisahkan atau membedakan class `controller` antara
+  `Homepage`,`Car`,dan `Product`. Dengan cara ini berarti setiap kelas hanya dapat menjalankan fungsi dari kegunaannya masing-masing
+  tanpa intervensi dengan class lain.
+
+
+- **Prinsip DIP**:
+
+  Prinsip DRP memberitahukan bahwa suatu kodingan yang _high-level_ jangan berkaitan atau terikat
+  dengan _low-level_. Semua harus terikat terhadap _abstraction_ (_not implementation_)
+  
+  Implementasi dari prinsip ini adalah `Car Controller` yang berkaitan dengan `Interface` dari `Service Car`
+  tanpa bertaut dengan Implementasi dari interface tersebut.
+
+
+- **Prinsip ISP**:
+  
+  Prinsip ISP memberitahukan bahwa suatu interface seharusnya dibagi menjadi interface yang lebih kecil
+  sesuai dengan fungsi masing-masing.
+
+  Implementasi dari ini adalah perbedaan `Interface` yang digunakan antara `Car` dan `Product` sehingga masing-masing
+  interface dapat menjalankan fungsinya masing-masing.
+
+**Note:**
+  
+  Beberapa prinsip yang masih bisa untuk diimplementasikan adalah OCP dengan membuat abstraction dari Car dan Product Reposetory, tetapi hal ini tidak
+  saya lakukan dikarenakan perbedaan syntaks yang saya implementasikan pada Produk repo sebelumnya berbeda dengan Car Repo
+  sehingga jika dibuat abstraction maka akan merubah test, service, dll. Mohon maaf atas kekuranngnya. Terima kasih.
+
+### 2. Keunggulan atas implementasi SOLID
+
+- **Memudahkan _tracking_ masalah dalam pengetestan kode**
+
+    Penting untuk memecah kode menjadi unit-unit yang lebih kecil saat pengujian. Jika sebuah method panjang digunakan, sulit untuk mengidentifikasi 
+    sumber kesalahan jika terjadi kegagalan saat pengujian. 
+
+    <br>
+
+    Dengan memisahkan method menjadi bagian yang lebih kecil, kita dapat dengan mudah menentukan sumber masalahnya. 
+    Selain itu, jika ada ketergantungan tinggi antara class, pengujian akan menjadi sulit karena harus memperhitungkan hubungan antar class dan kemungkinan 
+  perlunya menggunakan mock untuk ketergantungan tersebut.
+
+
+- **Meningkatkan _Readibility Code_**
+
+    Untuk meningkatkan keterbacaan kode, kita perlu memperhatikan panjang dan kompleksitas method. Method yang terlalu panjang dan kompleks bisa sulit dipahami oleh pembaca baru. 
+    
+    <br>
+
+    Memecah method tersebut menjadi beberapa bagian yang lebih kecil dapat membantu pembaca memahami tujuan dan cara kerjanya dengan lebih jelas. 
+    Kode yang lebih pendek cenderung lebih mudah dipahami dibandingkan dengan yang panjang.
+
+
+- **Meningkatkan batasan dari dependency kode-kode (tidak merusak kode lain)**
+
+  Perubahan pada kode tidak memengaruhi bagian lain karena menggunakan Dependency Inversion dengan interface. 
+  Interface memastikan variabel sesuai dengan fungsi yang dibutuhkan. 
+
+  <br>
+  
+  Sebagai contoh, sebuah kelas menggunakan objek A sebagai tipe data B, 
+  perubahan pada fungsi dalam kelas tersebut harus tetap sesuai dengan interface agar tidak terjadi kesalahan. Jika menggunakan implementasi konkret dari B, A dapat dengan mudah mengubah fungsi yang dibutuhkan atau beralih ke interface lain.
+
+### 3. Kerugian atas tidak implementasi SOLID
+
+- **Kode akan menjadi sulit dipahami**. Seperti yang dijelaskan pada poin sebelumnya, 
+  metode yang melakukan terlalu banyak tugas akan menjadi lebih sulit untuk didebug dan dipahami tujuannya.
+
+
+- **Menguji kode akan sulit jika method yang ingin diuji 
+  memiliki banyak ketergantungan** pada bagian lain dalam codebase atau terlalu kompleks. Proses pengujian unit akan memerlukan usaha ekstra 
+  karena perlu mensimulasikan variabel yang dibutuhkan oleh method tersebut.
+
+
+- **Kode sulit diubah** jika tidak mematuhi prinsip SOLID. 
+  Hal ini dapat menyebabkan kerusakan pada modul lain atau memerlukan bongkar ulang implementasi saat mengubah tipe data yang diterima oleh sebuah method.
+
+<hr>
+<hr>
+
 # TUTORIAL - 2
 ## Refleksi
 
