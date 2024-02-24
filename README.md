@@ -45,20 +45,16 @@
 - **Memudahkan _tracking_ masalah dalam pengetestan kode**
 
     Penting untuk memecah kode menjadi unit-unit yang lebih kecil saat pengujian. Jika sebuah method panjang digunakan, sulit untuk mengidentifikasi 
-    sumber kesalahan jika terjadi kegagalan saat pengujian. 
-
-    <br>
+    sumber kesalahan jika terjadi kegagalan saat pengujian.
 
     Dengan memisahkan method menjadi bagian yang lebih kecil, kita dapat dengan mudah menentukan sumber masalahnya. 
     Selain itu, jika ada ketergantungan tinggi antara class, pengujian akan menjadi sulit karena harus memperhitungkan hubungan antar class dan kemungkinan 
-  perlunya menggunakan mock untuk ketergantungan tersebut.
+    perlunya menggunakan mock untuk ketergantungan tersebut.
 
 
 - **Meningkatkan _Readibility Code_**
 
-    Untuk meningkatkan keterbacaan kode, kita perlu memperhatikan panjang dan kompleksitas method. Method yang terlalu panjang dan kompleks bisa sulit dipahami oleh pembaca baru. 
-    
-    <br>
+    Untuk meningkatkan keterbacaan kode, kita perlu memperhatikan panjang dan kompleksitas method. Method yang terlalu panjang dan kompleks bisa sulit dipahami oleh pembaca baru.
 
     Memecah method tersebut menjadi beberapa bagian yang lebih kecil dapat membantu pembaca memahami tujuan dan cara kerjanya dengan lebih jelas. 
     Kode yang lebih pendek cenderung lebih mudah dipahami dibandingkan dengan yang panjang.
@@ -66,13 +62,11 @@
 
 - **Meningkatkan batasan dari dependency kode-kode (tidak merusak kode lain)**
 
-  Perubahan pada kode tidak memengaruhi bagian lain karena menggunakan Dependency Inversion dengan interface. 
-  Interface memastikan variabel sesuai dengan fungsi yang dibutuhkan. 
-
-  <br>
+    Perubahan pada kode tidak memengaruhi bagian lain karena menggunakan Dependency Inversion dengan interface. 
+    Interface memastikan variabel sesuai dengan fungsi yang dibutuhkan.
   
-  Sebagai contoh, sebuah kelas menggunakan objek A sebagai tipe data B, 
-  perubahan pada fungsi dalam kelas tersebut harus tetap sesuai dengan interface agar tidak terjadi kesalahan. Jika menggunakan implementasi konkret dari B, A dapat dengan mudah mengubah fungsi yang dibutuhkan atau beralih ke interface lain.
+    Sebagai contoh, sebuah kelas menggunakan objek A sebagai tipe data B, 
+    perubahan pada fungsi dalam kelas tersebut harus tetap sesuai dengan interface agar tidak terjadi kesalahan. Jika menggunakan implementasi konkret dari B, A dapat dengan mudah mengubah fungsi yang dibutuhkan atau beralih ke interface lain.
 
 ### 3. Kerugian atas tidak implementasi SOLID
 
