@@ -2,12 +2,12 @@ package id.ac.ui.cs.advprog.eshop.model;
 import java.util.Map;
 import lombok.Getter;
 @Getter
-public class CODPayment extends Payment {
-    public CODPayment(String id, String method, Order order, Map<String, String> paymentData, String status) {
+public class CashOnDeliveryPayment extends Payment {
+    public CashOnDeliveryPayment(String id, String method, Order order, Map<String, String> paymentData, String status) {
         super(id, method, order, paymentData, status);
     }
 
-    public CODPayment(String id, String method, Order order, Map<String, String> paymentData) {
+    public CashOnDeliveryPayment(String id, String method, Order order, Map<String, String> paymentData) {
         super(id, method, order, paymentData);
     }
 
