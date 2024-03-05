@@ -13,6 +13,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import enums.PaymentStatus;
 
 class PaymentTest {
     private Map<String, String> paymentData;
@@ -56,7 +57,7 @@ class PaymentTest {
         assertNull(payment.getPaymentData());
         assertEquals("e45d7d21-fd29-4533-a569-abbe0819579a", payment.getId());
         assertEquals("", payment.getMethod());
-        assertEquals("WAITING_PAYMENT", payment.getStatus());
+        assertEquals(PaymentStatus.WAITING_PAYMENT.getValue(), payment.getStatus());
         paymentData.clear();
     }
 
@@ -68,13 +69,13 @@ class PaymentTest {
                 "",
                 order,
                 paymentData,
-                "SUCCESS"
+                PaymentStatus.SUCCESS.getValue()
         );
         assertSame(payment.getOrder(), order);
         assertNull(payment.getPaymentData());
         assertEquals("e45d7d21-fd29-4533-a569-abbe0819579a", payment.getId());
         assertEquals("", payment.getMethod());
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
     }
 
@@ -86,13 +87,13 @@ class PaymentTest {
                 "",
                 order,
                 paymentData,
-                "REJECTED"
+                PaymentStatus.REJECTED.getValue()
         );
         assertSame(payment.getOrder(), order);
         assertNull(payment.getPaymentData());
         assertEquals("e45d7d21-fd29-4533-a569-abbe0819579a", payment.getId());
         assertEquals("", payment.getMethod());
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
     }
 
@@ -138,8 +139,8 @@ class PaymentTest {
                 order,
                 paymentData
         );
-        payment.setStatus("SUCCESS");
-        assertEquals("SUCCESS", payment.getStatus());
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
     }
 
@@ -152,8 +153,8 @@ class PaymentTest {
                 order,
                 paymentData
         );
-        payment.setStatus("REJECTED");
-        assertEquals("REJECTED", payment.getStatus());
+        payment.setStatus(PaymentStatus.REJECTED.getValue());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
     }
 
