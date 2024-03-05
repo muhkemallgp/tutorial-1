@@ -5,13 +5,13 @@ import java.util.Map;
 import lombok.Getter;
 
 @Getter
-public class VoucherCode extends Payment {
+public class VoucherCodePayment extends Payment {
 
-    public VoucherCode(String id, String method, Order order, Map<String, String> paymentData) {
+    public VoucherCodePayment(String id, String method, Order order, Map<String, String> paymentData) {
         super(id, method, order, paymentData);
     }
 
-    public VoucherCode(String id, String method, Order order, Map<String, String> paymentData, String status) {
+    public VoucherCodePayment(String id, String method, Order order, Map<String, String> paymentData, String status) {
         super(id, method, order, paymentData, status);
     }
 
