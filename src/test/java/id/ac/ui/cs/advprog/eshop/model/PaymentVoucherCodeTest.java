@@ -252,4 +252,60 @@ class PaymentVoucherCodeTest {
             );
         });
     }
+
+    @Test
+    void testCreateVoucherCodePaymentWithInvalidVoucherCodeBecauseMoreThan16Length() {
+        paymentData.put("voucherCode", "ESHOP1234ABCD5679");
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            Payment payment = new VoucherCodePayment(
+                    "e45d7d21-fd29-4533-a569-abbe0819579a",
+                    PaymentMethod.VOUCHER.getValue(),
+                    order,
+                    paymentData
+            );
+        });
+    }
+
+    @Test
+    void testCreateVoucherCodePaymentWithInvalidVoucherCodeBecauseNotStartWithESHOP() {
+        paymentData.put("voucherCode", "XSHOP1234ABCD5679");
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            Payment payment = new VoucherCodePayment(
+                    "e45d7d21-fd29-4533-a569-abbe0819579a",
+                    PaymentMethod.VOUCHER.getValue(),
+                    order,
+                    paymentData
+            );
+        });
+    }
+
+    @Test
+    void testCreateVoucherCodePaymentWithInvalidVoucherCodeBecauseNot8Numerics() {
+        paymentData.put("voucherCode", "ESHOP1234ABCD567X");
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            Payment payment = new VoucherCodePayment(
+                    "e45d7d21-fd29-4533-a569-abbe0819579a",
+                    PaymentMethod.VOUCHER.getValue(),
+                    order,
+                    paymentData
+            );
+        });
+    }
+
+    @Test
+    void testCreateVoucherCodePaymentWithInvalidVoucherCodeBecauseLessThan16Length() {
+        paymentData.put("voucherCode", "ESHOP1234ABCD567");
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            Payment payment = new VoucherCodePayment(
+                    "e45d7d21-fd29-4533-a569-abbe0819579a",
+                    PaymentMethod.VOUCHER.getValue(),
+                    order,
+                    paymentData
+            );
+        });
+    }
 }
