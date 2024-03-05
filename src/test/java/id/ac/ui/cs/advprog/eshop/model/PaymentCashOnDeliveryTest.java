@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import enums.PaymentMethod;
 import enums.PaymentStatus;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PaymentCashOnDeliveryTest {
     Map<String, String> paymentData;
