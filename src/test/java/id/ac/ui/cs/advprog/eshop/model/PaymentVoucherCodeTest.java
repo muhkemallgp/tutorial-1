@@ -48,8 +48,8 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentWaitingPaymentStatus() {
-        Payment payment = new VoucherPayment(
+    void testCreateVoucherCodePaymentWaitingPaymentStatus() {
+        Payment payment = new VoucherCodePayment(
                 "f3b4a3e3-9a7f-4603-92c2-eaf529271cc9",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
@@ -64,8 +64,8 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentSuccessStatus() {
-        Payment payment = new VoucherPayment(
+    void testCreateVoucherCodePaymentSuccessStatus() {
+        Payment payment = new VoucherCodePayment(
                 "e45d7d21-fd29-4533-a569-abbe0819579a",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
@@ -80,8 +80,8 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentRejectedStatus() {
-        Payment payment = new VoucherPayment(
+    void testCreateVoucherCodePaymentRejectedStatus() {
+        Payment payment = new VoucherCodePayment(
                 "e45d7d21-fd29-4533-a569-abbe0819579a",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
@@ -96,10 +96,10 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentInvalidStatus() {
+    void testCreateVoucherCodePaymentInvalidStatus() {
         assertThrows(IllegalArgumentException.class, () -> {
             @SuppressWarnings("unused")
-            Payment payment = new VoucherPayment(
+            Payment payment = new VoucherCodePayment(
                     "e45d7d21-fd29-4533-a569-abbe0819579a",
                     PaymentMethod.VOUCHER.getValue(),
                     order,
@@ -110,10 +110,10 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentNullStatus() {
+    void testCreateVoucherCodePaymentNullStatus() {
         assertThrows(IllegalArgumentException.class, () -> {
             @SuppressWarnings("unused")
-            Payment payment = new VoucherPayment(
+            Payment payment = new VoucherCodePayment(
                     "e45d7d21-fd29-4533-a569-abbe0819579a",
                     PaymentMethod.VOUCHER.getValue(),
                     order,
@@ -124,8 +124,8 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testSetVoucherPaymentStatStatusToSuccess() {
-        Payment payment = new VoucherPayment(
+    void testSetVoucherCodePaymentStatStatusToSuccess() {
+        Payment payment = new VoucherCodePayment(
                 "e45d7d21-fd29-4533-a569-abbe0819579a",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
@@ -136,8 +136,8 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testSetVoucherPaymentStatStatusToRejected() {
-        Payment payment = new VoucherPayment(
+    void testSetVoucherCodePaymentStatStatusToRejected() {
+        Payment payment = new VoucherCodePayment(
                 "e45d7d21-fd29-4533-a569-abbe0819579a",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
@@ -148,8 +148,8 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testSetVoucherPaymentStatStatusToWaitingPayment() {
-        Payment payment = new VoucherPayment(
+    void testSetVoucherCodePaymentStatStatusToWaitingPayment() {
+        Payment payment = new VoucherCodePayment(
                 "e45d7d21-fd29-4533-a569-abbe0819579a",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
@@ -160,8 +160,8 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testSetVoucherPaymentStatStatusToInvalid() {
-        Payment payment = new VoucherPayment(
+    void testSetVoucherCodePaymentStatStatusToInvalid() {
+        Payment payment = new VoucherCodePayment(
                 "e45d7d21-fd29-4533-a569-abbe0819579a",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
@@ -173,8 +173,8 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testSetVoucherPaymentStatStatusToNull() {
-        Payment payment = new VoucherPayment(
+    void testSetVoucherCodePaymentStatStatusToNull() {
+        Payment payment = new VoucherCodePayment(
                 "e45d7d21-fd29-4533-a569-abbe0819579a",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
@@ -186,10 +186,10 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentWithNullOrder() {
+    void testCreateVoucherCodePaymentWithNullOrder() {
         assertThrows(IllegalArgumentException.class, () -> {
             @SuppressWarnings("unused")
-            Payment payment = new VoucherPayment(
+            Payment payment = new VoucherCodePayment(
                     "e45d7d21-fd29-4533-a569-abbe0819579a",
                     PaymentMethod.VOUCHER.getValue(),
                     null,
@@ -199,11 +199,11 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentWithEmptyPaymentData() {
+    void testCreateVoucherCodePaymentWithEmptyPaymentData() {
         paymentData.clear();
         assertThrows(IllegalArgumentException.class, () -> {
             @SuppressWarnings("unused")
-            Payment payment = new VoucherPayment(
+            Payment payment = new VoucherCodePayment(
                     "e45d7d21-fd29-4533-a569-abbe0819579a",
                     PaymentMethod.VOUCHER.getValue(),
                     order,
@@ -213,10 +213,10 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentWithNullPaymentData() {
+    void testCreateVoucherCodePaymentWithNullPaymentData() {
         assertThrows(IllegalArgumentException.class, () -> {
             @SuppressWarnings("unused")
-            Payment payment = new VoucherPayment(
+            Payment payment = new VoucherCodePayment(
                     "e45d7d21-fd29-4533-a569-abbe0819579a",
                     PaymentMethod.VOUCHER.getValue(),
                     order,
@@ -226,11 +226,11 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentWithEmptyVoucherCode() {
+    void testCreateVoucherCodePaymentWithEmptyVoucherCode() {
         paymentData.put("voucherCode", "");
         assertThrows(IllegalArgumentException.class, () -> {
             @SuppressWarnings("unused")
-            Payment payment = new VoucherPayment(
+            Payment payment = new VoucherCodePayment(
                     "e45d7d21-fd29-4533-a569-abbe0819579a",
                     PaymentMethod.VOUCHER.getValue(),
                     order,
@@ -240,11 +240,11 @@ class PaymentVoucherCodeTest {
     }
 
     @Test
-    void testCreateVoucherPaymentWithNullVoucherCode() {
+    void testCreateVoucherCodePaymentWithNullVoucherCode() {
         paymentData.put("voucherCode", null);
         assertThrows(IllegalArgumentException.class, () -> {
             @SuppressWarnings("unused")
-            Payment payment = new VoucherPayment(
+            Payment payment = new VoucherCodePayment(
                     "e45d7d21-fd29-4533-a569-abbe0819579a",
                     PaymentMethod.VOUCHER.getValue(),
                     order,
