@@ -74,7 +74,7 @@ class PaymentRepositoryTest {
         );
 
         Map<String, String> bankPaymentData = new HashMap<>();
-        bankPaymentData.put("bankName", "BCA");
+        bankPaymentData.put("a", "BCA");
         bankPaymentData.put("referenceCode", "1234567890");
         Payment bankPayment = new CashOnDeliveryPayment(
                 "d0f81308-9911-40c5-8da4-fa3194485aa1",
