@@ -44,7 +44,7 @@ public class Payment {
     }
 
     protected void setPaymentData(Map<String, String> paymentData) {
-        if (PaymentMethod.contains(this.method)) {
+        if (PaymentMethod.contains(this.method) && paymentData == null && paymentData.isEmpty()) {
             throw new IllegalArgumentException(
                     "Cannot set method-specific payment data for non-method-specific payment"
             );
