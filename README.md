@@ -3,6 +3,21 @@
 #### Kelas : ADPRO - A
 #### ASDOS : REN
 #### Link Deployment: [Eshop-Kemal](https://production-qemul-adpro-eshop.koyeb.app/)
+
+# TUTORIAL - 4
+## Refleksi
+1. Prosedur TDD membantu dalam membuat kode aman dan cepat. Test sebelumnya menjamin kode aman jika lulus. Perubahan 
+kode dapat langsung diuji untuk mempermudah refactoring. Untuk lebih menjamin kebenaran kode, perlu ditambahkan pengujian interaksi fitur. Misalnya, testing untuk membuat,
+mengupdate, dan mendelete 100 produk sekaligus untuk mengetahui interaksi tiga fitur berjalan dengan benar.
+
+
+2. Menurut saya, test-test yang sudah saya buat sudah memenuhi prinsip F.I.R.S.T dengan 
+algoritma testing seminimal untuk menguji kode seluruhnya, isolasi antar test yang tidak mempengaruhi hasil test lain, 
+dan asersi yang memastikan kebenaran output dan dapat digunakan berulang-ulang untuk perubahan kode.
+
+<hr>
+<hr>
+
 # TUTORIAL - 3
 ## Refleksi
 ### 1. Prinsip SOLID yang di implementasikan
