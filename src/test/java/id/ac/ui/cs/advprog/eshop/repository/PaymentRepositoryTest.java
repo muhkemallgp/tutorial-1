@@ -73,18 +73,18 @@ class PaymentRepositoryTest {
                 voucherPaymentData
         );
 
-        Map<String, String> bankPaymentData = new HashMap<>();
-        bankPaymentData.put("a", "BCA");
-        bankPaymentData.put("referenceCode", "1234567890");
-        Payment bankPayment = new CashOnDeliveryPayment(
+        Map<String, String> CODPaymentData = new HashMap<>();
+        CODPaymentData.put("a", "BCA");
+        CODPaymentData.put("deliveryFee", "1234567890");
+        Payment CODPayment = new CashOnDeliveryPayment(
                 "d0f81308-9911-40c5-8da4-fa3194485aa1",
                 PaymentMethod.COD.getValue(),
                 order,
-                bankPaymentData
+                CODPaymentData
         );
 
         payments.add(voucherPayment);
-        payments.add(bankPayment);
+        payments.add(CODPayment);
     }
 
     @Test
@@ -223,8 +223,8 @@ class PaymentRepositoryTest {
         Order newOrder = new Order("dbd4aff4-9a7f-4603-92c2-eaf529271cc9",
                 newProducts, 1708560000L, "Safira Sudrajat");
         Map<String, String> newCashOnDeliveryPaymentData = new HashMap<>();
-        newCashOnDeliveryPaymentData.put("bankName", "BNI");
-        newCashOnDeliveryPaymentData.put("referenceCode", "1234567890");
+        newCashOnDeliveryPaymentData.put("address", "Jalan Raya 1");
+        newCashOnDeliveryPaymentData.put("deliveryFee", "100");
         Payment newPayment = new CashOnDeliveryPayment(
                 payment.getId(),
                 payment.getMethod(),
