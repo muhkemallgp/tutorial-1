@@ -1,48 +1,45 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import enums.OrderStatus;
+import enums.PaymentMethod;
+
+import enums.PaymentStatus;
+import id.ac.ui.cs.advprog.eshop.model.*;
+import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
+import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import enums.PaymentMethod;
-import enums.PaymentStatus;
-import id.ac.ui.cs.advprog.eshop.model.CashOnDeliveryPayment;
-import id.ac.ui.cs.advprog.eshop.model.Order;
-import id.ac.ui.cs.advprog.eshop.model.Payment;
-import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.model.VoucherCodePayment;
-import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceImplTest {
-    @Spy
+
     @InjectMocks
     PaymentServiceImpl paymentService;
     @Mock
     PaymentRepository paymentRepository;
+    @Mock
+    OrderRepository orderRepository;
     List<Payment> payments;
+    List<Order> orders;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         payments = new ArrayList<>();
+        orders = new ArrayList<>();
 
         List<Product> products = new ArrayList<>();
         Product product = new Product();
@@ -53,11 +50,12 @@ class PaymentServiceImplTest {
 
         Order order = new Order("dbd4aff4-9a7f-4603-92c2-eaf529271cc9",
                 products, 1708560000L, "Safira Sudrajat");
+        orders.add(order);
 
         Map<String, String> voucherPaymentData = new HashMap<>();
         voucherPaymentData.put("voucherCode", "ESHOP00000000AAA");
         Payment voucherPayment = new VoucherCodePayment(
-                "c0f81308-9911-40c5-8da4-fa3194485aa1",
+                "dbd4aff4-9a7f-4603-92c2-eaf529271cc9",
                 PaymentMethod.VOUCHER.getValue(),
                 order,
                 voucherPaymentData
@@ -67,7 +65,7 @@ class PaymentServiceImplTest {
         CODPaymentData.put("address", "Jalan Raya 1");
         CODPaymentData.put("deliveryFee", "1000");
         Payment CODPayment = new CashOnDeliveryPayment(
-                "d0f81308-9911-40c5-8da4-fa3194485aa1",
+                "dbd4aff4-9a7f-4603-92c2-eaf529271cc9",
                 PaymentMethod.COD.getValue(),
                 order,
                 CODPaymentData
@@ -78,176 +76,74 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    void testAddCODPayment() {
-        Payment CODPayment = payments.get(1);
-        doReturn(CODPayment).when(paymentRepository).save(any(Payment.class));
+    void testAddPayment() {
+        Order order = orders.get(0);
+        Payment payment = payments.get(0);
+        doReturn(payment).when(paymentRepository).save(any(Payment.class));
 
-        Payment result = paymentService.addPayment(
-                CODPayment.getMethod(),
-                CODPayment.getOrder(),
-                CODPayment.getPaymentData()
-        );
-
-        verify(paymentRepository, times(1)).save(CODPayment);
-        assertEquals(CODPayment.getId(), result.getId());
-        assertEquals(CODPayment.getMethod(), result.getMethod());
-        assertEquals(CODPayment.getOrder(), result.getOrder());
-        assertEquals(CODPayment.getPaymentData(), result.getPaymentData());
-        assertEquals(PaymentMethod.COD.getValue(), result.getMethod());
-    }
-
-    @Test
-    void testAddVoucherCodePayment() {
-        Payment voucherPayment = payments.get(0);
-        doReturn(voucherPayment).when(paymentRepository).save(any(Payment.class));
-
-        Payment result = paymentService.addPayment(
-                voucherPayment.getMethod(),
-                voucherPayment.getOrder(),
-                voucherPayment.getPaymentData()
-        );
-
-        verify(paymentRepository, times(1)).save(voucherPayment);
-        assertEquals(voucherPayment.getId(), result.getId());
-        assertEquals(voucherPayment.getMethod(), result.getMethod());
-        assertEquals(voucherPayment.getOrder(), result.getOrder());
-        assertEquals(voucherPayment.getPaymentData(), result.getPaymentData());
-        assertEquals(PaymentMethod.VOUCHER.getValue(), result.getMethod());
-    }
-
-    @Test
-    void testAddCODPaymentButOrderAlreadyExist() {
-        Payment CODPayment = payments.get(1);
-        doReturn(CODPayment).when(paymentRepository).findById(CODPayment.getId());
-
-        assertNull(paymentService.addPayment(
-                CODPayment.getMethod(),
-                CODPayment.getOrder(),
-                CODPayment.getPaymentData()
-        ));
-        verify(paymentRepository, times(0)).save(CODPayment);
-    }
-
-    @Test
-    void testAddVoucherCodePaymentButOrderAlreadyExist() {
-        Payment voucherPayment = payments.get(0);
-        doReturn(voucherPayment).when(paymentRepository).findById(voucherPayment.getId());
-
-        assertNull(paymentService.addPayment(
-                voucherPayment.getMethod(),
-                voucherPayment.getOrder(),
-                voucherPayment.getPaymentData()
-        ));
-        verify(paymentRepository, times(0)).save(voucherPayment);
-    }
-
-    @Test
-    void testUpdateStatusCODPayment() {
-        Payment CODPayment = payments.get(1);
-        Payment newCODPayment = new CashOnDeliveryPayment(
-                CODPayment.getId(),
-                CODPayment.getMethod(),
-                CODPayment.getOrder(),
-                CODPayment.getPaymentData(),
-                PaymentStatus.SUCCESS.getValue()
-        );
-
-        doReturn(CODPayment).when(paymentRepository).findById(CODPayment.getId());
-        doReturn(newCODPayment).when(paymentRepository).save(any(Payment.class));
-
-        Payment result = paymentService.updatePaymentStatus(
-                CODPayment.getId(),
-                PaymentStatus.SUCCESS.getValue()
-        );
-
-        assertEquals(CODPayment.getId(), result.getId());
-        assertEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
-        assertEquals(CODPayment.getMethod(), result.getMethod());
-        assertEquals(CODPayment.getOrder(), result.getOrder());
-        assertEquals(CODPayment.getPaymentData(), result.getPaymentData());
-        assertEquals(PaymentMethod.COD.getValue(), result.getMethod());
+        Payment result = paymentService.addPayment(order, PaymentMethod.VOUCHER.getValue(), Map.of("voucherCode", "ESHOP1234ABC5678"));
         verify(paymentRepository, times(1)).save(any(Payment.class));
+        assertEquals(payment.getId(), result.getId());
     }
 
     @Test
-    void testUpdateStatusVoucherCodePayment() {
-        Payment voucherPayment = payments.get(0);
-        Payment newVoucherCodePayment = new VoucherCodePayment(
-                voucherPayment.getId(),
-                voucherPayment.getMethod(),
-                voucherPayment.getOrder(),
-                voucherPayment.getPaymentData(),
-                PaymentStatus.SUCCESS.getValue()
-        );
+    void testSetStatusSuccess() {
+        Payment payment = payments.get(0);
+        Order order = orders.get(0);
+        doReturn(order).when(orderRepository).findById(payment.getId());
+        doReturn(order).when(orderRepository).save(order);
+        doReturn(payment).when(paymentRepository).save(payment);
 
-        doReturn(voucherPayment).when(paymentRepository).findById(voucherPayment.getId());
-        doReturn(newVoucherCodePayment).when(paymentRepository).save(any(Payment.class));
-
-        Payment result = paymentService.updatePaymentStatus(
-                voucherPayment.getId(),
-                PaymentStatus.SUCCESS.getValue()
-        );
-
-        assertEquals(voucherPayment.getId(), result.getId());
+        Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
+        verify(orderRepository, times(1)).save(order);
+        verify(paymentRepository, times(1)).save(payment);
         assertEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
-        assertEquals(voucherPayment.getMethod(), result.getMethod());
-        assertEquals(voucherPayment.getOrder(), result.getOrder());
-        assertEquals(voucherPayment.getPaymentData(), result.getPaymentData());
-        assertEquals(PaymentMethod.VOUCHER.getValue(), result.getMethod());
-        verify(paymentRepository, times(1)).save(any(Payment.class));
+        assertEquals(OrderStatus.SUCCESS.getValue(), order.getStatus());
     }
 
     @Test
-    void testUpdateStatusCODPaymentInvalidStatus() {
-        Payment CODPayment = payments.get(1);
-        doReturn(CODPayment).when(paymentRepository).findById(CODPayment.getId());
+    void testSetStatusRejected() {
+        Payment payment = payments.get(0);
+        Order order = orders.get(0);
+        doReturn(order).when(orderRepository).findById(payment.getId());
+        doReturn(order).when(orderRepository).save(order);
+        doReturn(payment).when(paymentRepository).save(payment);
+
+        Payment result = paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
+        verify(orderRepository, times(1)).save(order);
+        verify(paymentRepository, times(1)).save(payment);
+        assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
+    }
+
+    @Test
+    void testSetStatusInvalidStatus() {
+        Payment payment = payments.get(0);
+        Order order = orders.get(0);
+        doReturn(order).when(orderRepository).findById(payment.getId());
 
         assertThrows(IllegalArgumentException.class, () -> {
-            paymentService.updatePaymentStatus(CODPayment.getId(), "MEOW");
+            paymentService.setStatus(payment, "MEOW");
         });
+
+        verify(orderRepository, times(0)).save(any(Order.class));
         verify(paymentRepository, times(0)).save(any(Payment.class));
     }
 
     @Test
-    void testUpdateStatusVoucherCodePaymentInvalidStatus() {
-        Payment voucherPayment = payments.get(0);
-        doReturn(voucherPayment).when(paymentRepository).findById(voucherPayment.getId());
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            paymentService.updatePaymentStatus(voucherPayment.getId(), "MEOW");
-        });
-        verify(paymentRepository, times(0)).save(any(Payment.class));
-    }
-
-    @Test
-    void testUpdateStatusCODPaymentInvalidId() {
-        doReturn(null).when(paymentRepository).findById("zczc");
-
-        assertThrows(NoSuchElementException.class, () -> {
-            paymentService.updatePaymentStatus("zczc", PaymentStatus.SUCCESS.getValue());
-        });
-
-        verify(paymentRepository, times(0)).save(any(Payment.class));
-    }
-
-    @Test
-    void testFindByIdIfIdFound() {
-        Payment payment = payments.get(1);
+    void testGetPayment() {
+        Payment payment = payments.get(0);
         doReturn(payment).when(paymentRepository).findById(payment.getId());
 
-        Payment result = paymentService.findById(payment.getId());
-
+        Payment result = paymentService.getPayment(payment.getId());
+        verify(paymentRepository, times(1)).findById(payment.getId());
         assertEquals(payment.getId(), result.getId());
-        assertEquals(payment.getMethod(), result.getMethod());
-        assertEquals(payment.getOrder(), result.getOrder());
-        assertEquals(payment.getPaymentData(), result.getPaymentData());
     }
 
     @Test
-    void testFindByIdIfIdNotFound() {
+    void testGetPaymentIfNotFound() {
         doReturn(null).when(paymentRepository).findById("zczc");
-
-        assertNull(paymentService.findById("zczc"));
+        assertNull(paymentService.getPayment("zczc"));
     }
 
     @Test
@@ -255,7 +151,16 @@ class PaymentServiceImplTest {
         doReturn(payments).when(paymentRepository).getAllPayments();
 
         List<Payment> result = paymentService.getAllPayments();
-
+        verify(paymentRepository, times(1)).getAllPayments();
         assertEquals(payments, result);
+    }
+
+    @Test
+    void testGetAllPaymentsEmpty() {
+        doReturn(new ArrayList<Payment>()).when(paymentRepository).getAllPayments();
+
+        List<Payment> result = paymentService.getAllPayments();
+        verify(paymentRepository, times(1)).getAllPayments();
+        assertEquals(new ArrayList<Payment>(), result);
     }
 }
