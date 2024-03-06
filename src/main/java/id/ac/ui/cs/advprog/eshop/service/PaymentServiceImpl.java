@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -19,20 +21,36 @@ public class PaymentServiceImpl implements PaymentService {
     private OrderRepository orderRepository;
 
     @Override
-    public Payment addPayment(String method, Order order, Map<String, String> paymentDetails) {
-        return null;
+    public Payment addPayment(Order order, String method, Map<String, String> paymentDetails) {
+        Payment payment = new Payment(order.getId(), method,order, paymentDetails);
+        paymentRepository.save(payment);
+        return payment;
     }
     @Override
-    public Payment updatePaymentStatus(String payment, String status) {
-        return null;
+    public Payment setStatus(Payment payment, String status) {
+        Order order = orderRepository.findById(payment.getId());
+        if (order != null) {
+            if (status.equals("SUCCESS")) {
+                order.setStatus(OrderStatus.SUCCESS.getValue());
+            } else if (status.equals("REJECTED")) {
+                order.setStatus(OrderStatus.FAILED.getValue());
+            } else {
+                throw new IllegalArgumentException();
+            }
+            orderRepository.save(order);
+            payment.setStatus(status);
+            paymentRepository.save(payment);
+        } else {
+            throw new NoSuchElementException();
+        }
+        return payment;
     }
     @Override
-    public Payment findById(String paymentId) {
-        return null;
+    public Payment getPayment(String paymentId) {
+        return paymentRepository.findById(paymentId);
     }
-
     @Override
     public List<Payment> getAllPayments() {
-        return null;
+        return paymentRepository.getAllPayments();
     }
 }
