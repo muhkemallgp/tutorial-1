@@ -74,8 +74,8 @@ class PaymentRepositoryTest {
         );
 
         Map<String, String> CODPaymentData = new HashMap<>();
-        CODPaymentData.put("a", "BCA");
-        CODPaymentData.put("deliveryFee", "1234567890");
+        CODPaymentData.put("address", "Jalan Raya 1");
+        CODPaymentData.put("deliveryFee", "1000");
         Payment CODPayment = new CashOnDeliveryPayment(
                 "d0f81308-9911-40c5-8da4-fa3194485aa1",
                 PaymentMethod.COD.getValue(),
